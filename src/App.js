@@ -1,3 +1,4 @@
+import { useState, useRef } from "react";
 function App() {
   const buttons = [
     {
@@ -75,10 +76,30 @@ function App() {
       class: "all-clear",
     },
   ];
+  const outPutRef = useRef(null);
+  const [output, setOutput] = useState("0");
+  const [expression, setExpresion] = useState("");
+  const [decimalCounter, setDicimalCounter] = useState(0);
 
+  const handleClick = (event) => {
+    const input = event.target.innerText;
+
+    // clears output display on "AC/All Clear click"
+    if (input === "AC") {
+      setOutput("0");
+      setExpresion("");
+      setDicimalCounter(0);
+      return;
+    }
+  };
   // My calculator should contain a clickable element with an id="clear"
   const calcButtons = buttons.map((btn) => (
-    <button className={btn.class} key={btn.id} id={btn.id}>
+    <button
+      onClick={handleClick}
+      className={btn.class}
+      key={btn.id}
+      id={btn.id}
+    >
       {btn.value}
     </button>
   ));
@@ -87,9 +108,9 @@ function App() {
     <>
       <div className="calc-wrapper">
         <main className="calculator">
-          <div className="formula-screen">Expression Here</div>
-          <div className="output-screen" id="display">
-            Display
+          <div className="formula-screen">{expression}</div>
+          <div className="output-screen" ref={outPutRef} id="display">
+            {output}
           </div>
           <div className="calc-buttons">{calcButtons}</div>
           <div className="grid-wrapper"></div>
