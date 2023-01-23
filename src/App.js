@@ -91,6 +91,38 @@ function App() {
       setDicimalCounter(0);
       return;
     }
+
+    // Handle Decimal use cases
+    // if expression is empty and output is only 0 and input is decimal
+    if (input === "." && expression === "" && output === "0") {
+      setOutput("0" + ".");
+      setExpresion("0" + ".");
+      setDicimalCounter(1);
+      console.log("Decimal case 1");
+    }
+    if (
+      input === "." &&
+      expression === "0" &&
+      output === "0" &&
+      decimalCounter < 1
+    ) {
+      setOutput(output + input);
+      setExpresion(expression + input);
+      setDicimalCounter(1);
+      console.log("Decimal case 2");
+    }
+
+    if (
+      input === "." &&
+      expression !== "0" &&
+      output !== "0" &&
+      decimalCounter < 1
+    ) {
+      setOutput(output + input);
+      setExpresion(expression + input);
+      setDicimalCounter(1);
+      console.log("Decimal case 3");
+    }
   };
   // My calculator should contain a clickable element with an id="clear"
   const calcButtons = buttons.map((btn) => (
