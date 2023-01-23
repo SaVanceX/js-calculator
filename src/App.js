@@ -123,6 +123,41 @@ function App() {
       setDicimalCounter(1);
       console.log("Decimal case 3");
     }
+
+    if (Number.isInteger(Number(input))) {
+      //////////////////////////////////////////////////////
+      // Handle whole number
+      // user clicks integer
+      // if decimal exist concat number after decimal
+      if (decimalCounter === 1) {
+        // Decimal Case 4
+        setOutput(output + input);
+        setExpresion(expression + input);
+        console.log("Decimal Case 4");
+      }
+
+      if (input === "0" && output === "0" && expression === "") {
+        setExpresion("0");
+        console.log("Case 4");
+      }
+
+      if (
+        input !== "0" &&
+        input !== "." &&
+        output.length === 1 &&
+        output === "0"
+      ) {
+        console.log("Case 5");
+        setOutput(input);
+        setExpresion(input);
+      }
+
+      if (input !== "." && output !== "0") {
+        setOutput(output + input);
+        setExpresion(expression + input);
+        console.log("Case 6");
+      }
+    }
   };
   // My calculator should contain a clickable element with an id="clear"
   const calcButtons = buttons.map((btn) => (
