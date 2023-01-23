@@ -58,7 +58,7 @@ function App() {
     },
     {
       id: "multiply",
-      value: "X",
+      value: "*",
       class: "operator multiply",
     },
     {
@@ -83,7 +83,32 @@ function App() {
 
   const handleClick = (event) => {
     const input = event.target.innerText;
+    // TODO Create helper functions for different use cases.
 
+    // Handle Equals case
+    if (input === "=") {
+      if (expression === "" && output === "0") {
+        setOutput("NaN");
+        setExpresion("=Nan");
+      }
+
+      // check expression
+      if (expression.length >= 1) {
+        setExpresion(eval(expression));
+        setOutput(eval(expression));
+      }
+    }
+
+    ////////////// Handle Operators ///////////////////
+    if (input === "/" || input === "*" || input === "-" || input === "+") {
+      setOutput(input);
+      setExpresion(expression + input);
+    }
+    if (output === "/" || output === "*" || output === "-" || output === "+") {
+      setOutput(input);
+    }
+
+    ///////////////////////////////////////////////
     // clears output display on "AC/All Clear click"
     if (input === "AC") {
       setOutput("0");
@@ -112,6 +137,9 @@ function App() {
       console.log("Decimal case 2");
     }
 
+    if (!output.includes(".")) {
+      setDicimalCounter(0);
+    }
     if (
       input === "." &&
       expression !== "0" &&
